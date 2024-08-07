@@ -9,7 +9,7 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: url(./mdia/descarga.jpeg);
+    background: url(../imagenes/mess_fondo.jpg);
     background-size: cover;
     /*background-position: center;*/
     display: flex;

@@ -1,3 +1,4 @@
+from werkzeug.security import generate_password_hash, check_password_hash
 import mysql.connector
 
 class Clientes:
@@ -23,7 +24,8 @@ class Clientes:
         existe = self.consultar_cliente(usuario)
         if existe == False:
             sql = "INSERT INTO clientes (Usuario, Contraseña) VALUES (%s, %s)"
-            valores = (usuario, contraseña)
+            contraseña_encriptada = generate_password_hash(contraseña)
+            valores = (usuario, contraseña_encriptada)
             self.cursor.execute(sql,valores)
             self.conn.commit()
             return self.cursor.fetchone()
@@ -36,7 +38,7 @@ class Clientes:
         if existe == True:
             self.cursor.execute(f"SELECT * FROM clientes WHERE Usuario='{usuario}';")
             x =  self.cursor.fetchall()
-            if x[0]['Contraseña'] == contraseña:
+            if check_password_hash(x[0]['Contraseña'],contraseña):
                 print('Acceso concedido')
                 return True
             else: 
@@ -63,4 +65,4 @@ class Clientes:
 
 afaClientes = Clientes("localhost","root","","basededatos")
 
-afaClientes.sign_in("Elssa","1234")
+afaClientes.sign_in("Elssaa","1234")

@@ -48,7 +48,7 @@ class Clientes(UserMixin):
         self.cursor.execute("SELECT * FROM clientes WHERE Usuario = %s", (user_id,))
         return self.cursor.fetchone()
 
-    def log_in(self, usuario, contraseña):
+    def register_user(self, usuario, contraseña):
         if not self.consultar_cliente(usuario):
             sql = "INSERT INTO clientes (Usuario, Contraseña) VALUES (%s, %s)"
             contraseña_encriptada = generate_password_hash(contraseña)
@@ -98,6 +98,8 @@ def signin():
         if condition:
             
             return jsonify({"mensaje": "Cliente agregado correctamente."}),200
+        else:
+            return jsonify({"mensaje": "Usuario o contraseña incorrectos."}), 400
     return render_template('login.html')
 
 @app.route('/logout', methods=['GET', 'POST'])

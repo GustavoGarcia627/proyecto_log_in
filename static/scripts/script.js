@@ -11,16 +11,13 @@ const URL = "http://127.0.0.1:5000/";
             })
             .then(function (response) {
                 if (response.ok) {
-                    return response.json();
+                    //alert('Inicio de sesión exitoso.');
+                    window.location.href = URL + "profile";
                 } else {
                     throw new Error('Error al iniciar sesión.');
                 }
             })
-            .then(function (data) {
-                alert('Inicio de sesión exitoso.');
-                window.location.href = URL + "profile";
-            })
-            .catch(function (error) {
+            .catch(function () {
                 alert('El usuario no existe o la contraseña es incorrecta.');
                 window.location.href = URL + "login";
             });
